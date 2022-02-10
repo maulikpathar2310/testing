@@ -1,0 +1,86 @@
+﻿@model Formservicecrud.Models.Dropdown
+
+@{
+    ViewBag.Title = "Updatecategory";
+}
+
+
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/trontastic/jquery-ui.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#Date").datepicker();
+        });
+    </script>
+
+}
+
+    <h2>Updatecategory</h2>
+
+    @using (Html.BeginForm("Updatecategory", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Dropdown</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.dropdown, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.dropdown, new List<SelectListItem>()
+                    {
+                      new SelectListItem { Text="India" },
+                      new SelectListItem { Text="Australia" },
+                      new SelectListItem { Text="USA" }})
+                    @Html.ValidationMessageFor(model => model.dropdown, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label("Male")
+                    @Html.RadioButtonFor(model => model.Gender, "M")
+                    @Html.Label("Female")
+                    @Html.RadioButtonFor(model => model.Gender, "F")
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <img src="@Url.Content(Model.Image)" height="100" width="100"/>
+                    <input type="file" id="file" name="file" />
+                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "SelectCategory")
+    </div>
+
+
+  
